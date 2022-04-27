@@ -1,0 +1,65 @@
+{% include 'partials/base.html' %}
+
+{% if status == 1 %}
+<div class="row">
+    <div class="col-md-4 ms-4" >
+        <div class="row">
+            <form method="GET">
+                <label for="refresh"></label>
+                <div class="row">
+                    {% include 'dashboard/store_options.html' %}
+                    <div class="col-md-4 p-2" >
+                        <i id=refreshIcon class='refresh fa fa-refresh' title="Refresh Data"></i>
+                        <!-- <button type="submit" class = "w-75 btn btn-secondary" > Filter </button> -->
+                        <!-- <input type="submit"  -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7"></div>
+</div>
+<div class="row">
+    <div class="col-md-4 ms-4" >
+        <div id="inv_details" class="row">
+            {% include 'dashboard/inventory_details.html' %}
+        </div>
+    </div>
+    <div id="charts" class="col-md-7">
+        {% include 'dashboard/chart.html' %}
+    </div>
+</div>
+
+<style>
+    .refresh{
+        font-size:24px;
+        margin:3%;
+        cursor:pointer;
+    }
+</style>
+<script>
+
+
+        $("#refreshIcon").click(function () {
+        $.ajax({
+            url: '{% url 'refresh' %}',
+            data: {
+              'inputValue': true
+            },
+            dataType: 'json',
+            success: function (resp) {
+                console.log(resp)
+                document.getElementById('inv_details').innerHTML = resp["inv_table"];
+                document.getElementById('stores').innerHTML = resp["stores"];
+                myChart.data.labels= resp["filtered_data"]["lab"]
+                myChart.data.datasets[0].data = resp["filtered_data"]["count"]
+                myChart.update()
+                $("#stores").val('All Stores');
+                //  alert( $("#myselection option:selected").text() );
+            }
+          });
+        });
+    
+    </script>
+{% endif %}
+

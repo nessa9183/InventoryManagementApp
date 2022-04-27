@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="card-table">
+        <div class="cart-product">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <!-- <th>Sr.No</th> -->
+                        <th>Store</th>
+                        <th>Item</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in inventory_items%}
+                    <tr>
+                        <!-- <td>{{item.id}}</td> -->
+                        <td>{{item.store}}</td>
+                        <td>{{item.item_name}}</td>
+                        <td>{{item.item_count}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

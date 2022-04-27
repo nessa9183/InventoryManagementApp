@@ -1,0 +1,10 @@
+{
+    "csa_project": {
+        "aws_region": "us-east-1",
+        "django_settings": "inventoryManagement.settings",
+        "profile_name": "sk_csa",
+        "project_name": "inventorymanage",
+        "runtime": "python3.9",
+        "s3_bucket": "csa-project-zappa"
+    }
+}

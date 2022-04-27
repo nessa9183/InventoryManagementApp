@@ -1,0 +1,32 @@
+<div class="col-md-8" >
+    <select id="stores" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <!-- <option selected>All Stores</option> -->
+        {% for store in stores%}
+        <option value='{{store}}'>{{store}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<script>
+        $("#stores").change(function () {
+        var input = $(this).val();
+    
+        $.ajax({
+            url: '{% url 'store' %}',
+            data: {
+              'inputValue': input
+            },
+            dataType: 'json',
+            success: function (resp) {
+                console.log(resp)
+              document.getElementById('inv_details').innerHTML = resp["inv_table"];
+            //   document.getElementById('charts').innerHTML = resp["chart"];
+            //   myChart   .update()
+                myChart.data.labels= resp["filtered_data"]["lab"]
+                myChart.data.datasets[0].data = resp["filtered_data"]["count"]
+                myChart.update()
+            }
+          });
+        });
+        
+</script>
